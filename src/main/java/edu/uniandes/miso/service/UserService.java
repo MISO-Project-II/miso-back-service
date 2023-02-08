@@ -49,7 +49,7 @@ public class UserService {
     }
     @GET
     @Path("{id}")
-    public Response put(@PathParam("id") Long idService) {
+    public Response get(@PathParam("id") Long idService) {
         Optional<Service> findService = repository.findById(idService);
         InputServiceDto inputServiceDto = new OutputServiceDto();
         if(findService.isPresent()) {
@@ -70,7 +70,7 @@ public class UserService {
     @Path("{id}")
     public Response put(@PathParam("id") Long idService, InputServiceDto input) {
         Optional<Service> findService = repository.findById(idService);
-        if(findService.isPresent() && StringUtils.isNotEmpty(input.getCategory())) {
+        if(findService.isPresent() && StringUtils.isNotEmpty(input.getName())) {
             Service service = findService.get();
             service.setName(input.getName());
             service.setCategory(input.getCategory());
