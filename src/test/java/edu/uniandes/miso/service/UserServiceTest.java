@@ -46,6 +46,7 @@ class UserServiceTest {
 		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("name");
 		inputServiceDto.setCategory("category");
+		inputServiceDto.setIdUserCreator(1L);
 		Response response = userService.create(inputServiceDto);
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
@@ -55,6 +56,7 @@ class UserServiceTest {
 		Mockito.when(repository.save(service)).thenReturn(service);
 		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setCategory("category");
+		inputServiceDto.setIdUserCreator(1L);
 		Response response = userService.create(inputServiceDto);
 		assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
 	}
@@ -100,6 +102,7 @@ class UserServiceTest {
 		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("name");
 		inputServiceDto.setCategory("category");
+		inputServiceDto.setIdUserCreator(1L);
 		Response response = userService.put(1L,inputServiceDto);
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
@@ -110,6 +113,7 @@ class UserServiceTest {
 		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("name");
 		inputServiceDto.setCategory("category");
+		inputServiceDto.setIdUserCreator(1L);
 		Response response = userService.put(1L,inputServiceDto);
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
@@ -121,6 +125,7 @@ class UserServiceTest {
 		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("");
 		inputServiceDto.setCategory("category");
+		inputServiceDto.setIdUserCreator(1L);
 		Response response = userService.put(5L,inputServiceDto);
 		assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
 	}
