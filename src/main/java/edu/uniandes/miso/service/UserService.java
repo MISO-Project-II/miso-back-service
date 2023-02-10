@@ -1,7 +1,6 @@
 package edu.uniandes.miso.service;
 
 import edu.uniandes.miso.dto.InputServiceDto;
-import edu.uniandes.miso.dto.OutputServiceDto;
 import edu.uniandes.miso.dto.ResponseService;
 import edu.uniandes.miso.entity.Service;
 import edu.uniandes.miso.repository.ServiceRepository;
@@ -51,7 +50,7 @@ public class UserService {
     @Path("{id}")
     public Response get(@PathParam("id") Long idService) {
         Optional<Service> findService = repository.findById(idService);
-        InputServiceDto inputServiceDto = new OutputServiceDto();
+        InputServiceDto inputServiceDto = new InputServiceDto();
         if(findService.isPresent()) {
             Service service = findService.get();
             inputServiceDto.setName(service.getName());

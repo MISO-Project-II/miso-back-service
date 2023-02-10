@@ -1,7 +1,6 @@
 package edu.uniandes.miso.service;
 
 import edu.uniandes.miso.dto.InputServiceDto;
-import edu.uniandes.miso.dto.OutputServiceDto;
 import edu.uniandes.miso.entity.Service;
 import edu.uniandes.miso.repository.ServiceRepository;
 import io.quarkus.test.common.QuarkusTestResource;
@@ -44,7 +43,7 @@ class UserServiceTest {
 	@Test
 	void createOk() {
 		Mockito.when(repository.save(service)).thenReturn(service);
-		InputServiceDto inputServiceDto = new OutputServiceDto();
+		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("name");
 		inputServiceDto.setCategory("category");
 		Response response = userService.create(inputServiceDto);
@@ -54,7 +53,7 @@ class UserServiceTest {
 	@Test
 	void createFail() {
 		Mockito.when(repository.save(service)).thenReturn(service);
-		InputServiceDto inputServiceDto = new OutputServiceDto();
+		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setCategory("category");
 		Response response = userService.create(inputServiceDto);
 		assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
@@ -98,7 +97,7 @@ class UserServiceTest {
 	void putOk() {
 		Mockito.when(repository.findById(1L)).thenReturn(Optional.of(service));
 		Mockito.when(repository.save(service)).thenReturn(service);
-		InputServiceDto inputServiceDto = new OutputServiceDto();
+		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("name");
 		inputServiceDto.setCategory("category");
 		Response response = userService.put(1L,inputServiceDto);
@@ -108,7 +107,7 @@ class UserServiceTest {
 	void putOkEmpty() {
 		Mockito.when(repository.findById(1L)).thenReturn(Optional.of(service));
 		Mockito.when(repository.save(service)).thenReturn(service);
-		InputServiceDto inputServiceDto = new OutputServiceDto();
+		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("name");
 		inputServiceDto.setCategory("category");
 		Response response = userService.put(1L,inputServiceDto);
@@ -119,7 +118,7 @@ class UserServiceTest {
 	void putFail() {
 		Mockito.when(repository.findById(1L)).thenReturn(Optional.of(service));
 		Mockito.when(repository.save(service)).thenReturn(service);
-		InputServiceDto inputServiceDto = new OutputServiceDto();
+		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("");
 		inputServiceDto.setCategory("category");
 		Response response = userService.put(5L,inputServiceDto);

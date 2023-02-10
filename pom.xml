@@ -16,8 +16,7 @@
         <quarkus.platform.version>2.16.1.Final</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
-        <workspace>workspace</workspace>
-        <sonar.coverage.jacoco.xmlReportPaths>../miso-back-service/target/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+        <sonar.coverage.jacoco.xmlReportPaths>../workspace/target/jacoco-report/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
         <sonar.exclusions>src/main/java/edu/uniandes/miso/dto/**/*</sonar.exclusions>
     </properties>
     <dependencyManagement>
