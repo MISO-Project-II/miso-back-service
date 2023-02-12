@@ -12,7 +12,6 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
 import javax.inject.Inject;
-import javax.swing.text.html.Option;
 import javax.ws.rs.core.Response;
 
 import java.util.ArrayList;
@@ -37,7 +36,7 @@ class UserServiceTest {
 		service = new Service();
 		service.setId(1L);
 		service.setName("Example Name");
-		service.setCategory("Example Category");
+		service.setDescription("Example Category");
 	}
 
 	@Test
@@ -45,7 +44,7 @@ class UserServiceTest {
 		Mockito.when(repository.save(service)).thenReturn(service);
 		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("name");
-		inputServiceDto.setCategory("category");
+		inputServiceDto.setDescription("category");
 		inputServiceDto.setIdUserCreator(1L);
 		Response response = userService.create(inputServiceDto);
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -55,7 +54,7 @@ class UserServiceTest {
 	void createFail() {
 		Mockito.when(repository.save(service)).thenReturn(service);
 		InputServiceDto inputServiceDto = new InputServiceDto();
-		inputServiceDto.setCategory("category");
+		inputServiceDto.setDescription("category");
 		inputServiceDto.setIdUserCreator(1L);
 		Response response = userService.create(inputServiceDto);
 		assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
@@ -101,7 +100,7 @@ class UserServiceTest {
 		Mockito.when(repository.save(service)).thenReturn(service);
 		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("name");
-		inputServiceDto.setCategory("category");
+		inputServiceDto.setDescription("category");
 		inputServiceDto.setIdUserCreator(1L);
 		Response response = userService.put(1L,inputServiceDto);
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -112,7 +111,7 @@ class UserServiceTest {
 		Mockito.when(repository.save(service)).thenReturn(service);
 		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("name");
-		inputServiceDto.setCategory("category");
+		inputServiceDto.setDescription("category");
 		inputServiceDto.setIdUserCreator(1L);
 		Response response = userService.put(1L,inputServiceDto);
 		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
@@ -124,7 +123,7 @@ class UserServiceTest {
 		Mockito.when(repository.save(service)).thenReturn(service);
 		InputServiceDto inputServiceDto = new InputServiceDto();
 		inputServiceDto.setName("");
-		inputServiceDto.setCategory("category");
+		inputServiceDto.setDescription("category");
 		inputServiceDto.setIdUserCreator(1L);
 		Response response = userService.put(5L,inputServiceDto);
 		assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
