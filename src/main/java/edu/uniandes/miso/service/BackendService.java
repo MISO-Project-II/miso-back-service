@@ -41,8 +41,6 @@ public class BackendService {
 	@GET
 	@Path("{id}")
 	public Response getListByUserId(@PathParam("id") Long idUser) {
-		log.error("consumed!" + idUser);
-		log.info(repository.findByIdUserCreator(idUser));
 		return Response.ok(repository.findByIdUserCreator(idUser)).build();
 	}
 }
