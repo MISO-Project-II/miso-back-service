@@ -35,8 +35,11 @@ public class UserService {
         if (StringUtils.isNotEmpty(input.getName())) {
             Service service = new Service();
             service.setName(input.getName());
-            service.setCategory(input.getCategory());
+			service.setDescription(input.getDescription());
 			service.setIdUserCreator(input.getIdUserCreator());
+			service.setIdSport(input.getIdSport());
+			service.setPrice(input.getPrice());
+			service.setContract(input.getContract());
             repository.save(service);
             responseService.setSuccess(true);
             responseService.setMessage("Created");
@@ -55,8 +58,11 @@ public class UserService {
         if(findService.isPresent()) {
             Service service = findService.get();
             inputServiceDto.setName(service.getName());
-            inputServiceDto.setCategory(service.getCategory());
+			inputServiceDto.setDescription(service.getDescription());
 			inputServiceDto.setIdUserCreator(service.getIdUserCreator());
+			inputServiceDto.setIdSport(service.getIdSport());
+			inputServiceDto.setPrice(service.getPrice());
+			inputServiceDto.setContract(service.getContract());
             responseService.setSuccess(true);
             responseService.setMessage("Created");
             responseService.setResult(inputServiceDto);
@@ -74,7 +80,9 @@ public class UserService {
         if(findService.isPresent() && StringUtils.isNotEmpty(input.getName())) {
             Service service = findService.get();
             service.setName(input.getName());
-            service.setCategory(input.getCategory());
+			service.setDescription(input.getDescription());
+			service.setIdUserCreator(input.getIdUserCreator());
+
             repository.save(service);
             responseService.setSuccess(true);
             responseService.setMessage("updated");
