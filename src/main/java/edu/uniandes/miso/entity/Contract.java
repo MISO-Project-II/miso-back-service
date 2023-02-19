@@ -1,5 +1,5 @@
 package edu.uniandes.miso.entity;
 
 public enum Contract {
-	FREE, INTERMEDIATE, PREMIUM
+	FREE_CONTRACT, INTERMEDIATE_CONTRACT, PREMIUM_CONTRACT
 }
