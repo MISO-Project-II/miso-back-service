@@ -7,6 +7,7 @@ import edu.uniandes.miso.repository.ServiceRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.jboss.logging.Logger;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
