@@ -1,10 +1,11 @@
 package edu.uniandes.miso.dto;
 
+import java.math.BigDecimal;
+
 import com.fasterxml.jackson.annotation.JsonInclude;
+
 import lombok.Getter;
 import lombok.Setter;
-
-import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -15,5 +16,7 @@ public class InputServiceDto {
 	private Long idUserCreator;
 	private Long idSport;
 	private BigDecimal price;
-	private String contract;
+	private String contractType;
+	private String eventType;
+
 }
