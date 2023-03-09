@@ -1,5 +1,18 @@
 package edu.uniandes.miso.service;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import javax.inject.Inject;
+import javax.ws.rs.core.Response;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
 import edu.uniandes.miso.dto.InputServiceDto;
 import edu.uniandes.miso.entity.Service;
 import edu.uniandes.miso.repository.ServiceRepository;
@@ -7,18 +20,6 @@ import io.quarkus.test.common.QuarkusTestResource;
 import io.quarkus.test.h2.H2DatabaseTestResource;
 import io.quarkus.test.junit.QuarkusTest;
 import io.quarkus.test.junit.mockito.InjectMock;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import javax.inject.Inject;
-import javax.ws.rs.core.Response;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 @QuarkusTestResource(value = H2DatabaseTestResource.class)
 @QuarkusTest
 class UserServiceTest {
@@ -70,14 +71,14 @@ class UserServiceTest {
 	void getFail() {
 		Mockito.when(repository.findById(1L)).thenReturn(Optional.of(service));
 		Response response = userService.get(5L);
-		assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
+		assertEquals(Response.Status.BAD_REQUEST.getStatusCode(), response.getStatus());
 	}
 
 	@Test
 	void deleteOk() {
 		Mockito.when(repository.findById(1L)).thenReturn(Optional.of(service));
 		Response response = userService.delete(1L);
-		assertEquals(Response.Status.NO_CONTENT.getStatusCode(), response.getStatus());
+		assertEquals(Response.Status.OK.getStatusCode(), response.getStatus());
 	}
 	@Test
 	void deleteFail() {

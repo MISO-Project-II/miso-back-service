@@ -1,13 +1,7 @@
 package edu.uniandes.miso.service;
 
-import edu.uniandes.miso.dto.InputServiceDto;
-import edu.uniandes.miso.dto.ResponseService;
-import edu.uniandes.miso.entity.Service;
-import edu.uniandes.miso.repository.ServiceRepository;
-import org.apache.commons.lang3.StringUtils;
-import org.jboss.logging.Logger;
+import java.util.Optional;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -19,7 +13,14 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.util.Optional;
+
+import org.apache.commons.lang3.StringUtils;
+import org.jboss.logging.Logger;
+
+import edu.uniandes.miso.dto.InputServiceDto;
+import edu.uniandes.miso.dto.Reply;
+import edu.uniandes.miso.entity.Service;
+import edu.uniandes.miso.repository.ServiceRepository;
 
 @Path("service")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -30,7 +31,7 @@ public class UserService {
 
     @Inject
     ServiceRepository repository;
-    ResponseService responseService= new ResponseService();
+
     @POST
     public Response create(InputServiceDto input) {
         if (StringUtils.isNotEmpty(input.getName())) {
@@ -40,16 +41,12 @@ public class UserService {
 			service.setIdUserCreator(input.getIdUserCreator());
 			service.setIdSport(input.getIdSport());
 			service.setPrice(input.getPrice());
-			service.setContract(input.getContract());
-            repository.save(service);
-            responseService.setSuccess(true);
-            responseService.setMessage("Created");
-            responseService.setResult(input);
-            return Response.status(Response.Status.OK).entity(responseService).build();
+			service.setContractType(input.getContractType());
+			service.setEventType(input.getEventType());
+			Service getService = repository.save(service);
+			return Reply.ok(getService);
         }
-        responseService.setSuccess(false);
-        responseService.setMessage("Fail to created");
-        return Response.status(Response.Status.BAD_REQUEST).entity(responseService).build();
+		return Reply.notFound(null);
     }
     @GET
     @Path("{id}")
@@ -63,15 +60,11 @@ public class UserService {
 			inputServiceDto.setIdUserCreator(service.getIdUserCreator());
 			inputServiceDto.setIdSport(service.getIdSport());
 			inputServiceDto.setPrice(service.getPrice());
-			inputServiceDto.setContract(service.getContract());
-            responseService.setSuccess(true);
-            responseService.setMessage("Created");
-            responseService.setResult(inputServiceDto);
-            return Response.status(Response.Status.OK).entity(responseService).build();
+			inputServiceDto.setContractType(service.getContractType());
+			inputServiceDto.setEventType(service.getEventType());
+			return Reply.ok(inputServiceDto);
         }
-        responseService.setSuccess(true);
-        responseService.setMessage("Not found");
-        return Response.status(Response.Status.NO_CONTENT).entity(responseService).build();
+		return Reply.notFound(null);
     }
 
     @PUT
@@ -83,16 +76,10 @@ public class UserService {
             service.setName(input.getName());
 			service.setDescription(input.getDescription());
 			service.setIdUserCreator(input.getIdUserCreator());
-
-            repository.save(service);
-            responseService.setSuccess(true);
-            responseService.setMessage("updated");
-            responseService.setResult(input);
-            return Response.status(Response.Status.OK).entity(responseService).build();
+			Service getService = repository.save(service);
+			return Reply.ok(getService);
         }
-        responseService.setSuccess(false);
-        responseService.setMessage("Fail to update");
-        return Response.status(Response.Status.BAD_REQUEST).entity(responseService).build();
+		return Reply.notFound(null);
     }
     @DELETE
     @Path("{id}")
@@ -100,20 +87,13 @@ public class UserService {
         Optional<Service> findService = repository.findById(idService);
         if(findService.isPresent()) {
             repository.deleteById(findService.get().getId());
-            responseService.setSuccess(true);
-            responseService.setMessage("updated");
-            return Response.status(Response.Status.NO_CONTENT).entity(responseService).build();
+			return Reply.ok(null);
         }
-        responseService.setSuccess(false);
-        responseService.setMessage("Fail to update");
-        return Response.status(Response.Status.BAD_REQUEST).entity(responseService).build();
+		return Reply.notFound(null);
     }
 
     @GET
     public Response getAll(){
-        responseService.setSuccess(true);
-        responseService.setMessage("success");
-        responseService.setResult(repository.findAll());
-        return Response.status(Response.Status.OK).entity(responseService).build();
+		return Reply.ok(repository.findAll());
     }
 }
